@@ -43,7 +43,22 @@ class Kele
         :"stripped-text" => message_body
       }
     })
-    p "Message Sent!"  if response.success?
+    p "Message Sent!" if response.success?
+  end
+
+  def create_submission(assignment_branch, assignment_commit_link, checkpoint_id, comment)
+    enrollment_id = @my_info_hash["current_enrollment"]["id"]
+    response = self.class.post(api_url("/checkpoint_submissions"), {
+      headers: { authorization: @auth_token },
+      body: {
+        assignment_branch: assignment_branch,
+        assignment_commit_link: assignment_commit_link,
+        checkpoint_id: checkpoint_id,
+        comment: comment,
+        enrollment_id: enrollment_id,
+      }
+    })
+    p "Checkpoint submitted!" if response.success?
   end
 
   def api_url(destination)
