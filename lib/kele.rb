@@ -15,7 +15,7 @@ class Kele
 
   def get_me
     response = self.class.get(api_url("/users/me"), headers: { authorization: @auth_token })
-    @my_info_hash = JSON.parse(response.body)
+    JSON.parse(response.body)
   end
 
   def get_mentor_availability(mentor_id = @my_info_hash["current_enrollment"]["mentor_id"])
@@ -46,8 +46,7 @@ class Kele
     p "Message Sent!" if response.success?
   end
 
-  def create_submission(assignment_branch, assignment_commit_link, checkpoint_id, comment)
-    enrollment_id = @my_info_hash["current_enrollment"]["id"]
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment, enrollment_id)
     response = self.class.post(api_url("/checkpoint_submissions"), {
       headers: { authorization: @auth_token },
       body: {
