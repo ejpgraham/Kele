@@ -15,10 +15,10 @@ class Kele
 
   def get_me
     response = self.class.get(api_url("/users/me"), headers: { authorization: @auth_token })
-    @my_info_hash = JSON.parse(response.body)
+    JSON.parse(response.body)
   end
 
-  def get_mentor_availability(mentor_id = @my_info_hash["current_enrollment"]["mentor_id"])
+  def get_mentor_availability(mentor_id)
     response = self.class.get(api_url("/mentors/#{mentor_id}/student_availability"), headers: { authorization: @auth_token })
     JSON.parse(response.body)
   end
