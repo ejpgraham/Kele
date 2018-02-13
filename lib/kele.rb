@@ -33,14 +33,15 @@ class Kele
   end
 
 
-  def create_message(sender_email, recipient_id, subject = "No Subject", message_body )
+  def create_message(sender_email, recipient_id, subject = "No Subject", message_body, token)
     response = self.class.post(api_url("/messages"), {
       headers: { authorization: @auth_token },
       body: {
         sender: sender_email,
         recipient_id: recipient_id,
         subject: subject,
-        "stripped-text" => message_body
+        "stripped-text" => message_body,
+        token: token
       }
     })
     p "Message Sent!"  if response.success?
