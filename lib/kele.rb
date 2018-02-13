@@ -40,7 +40,7 @@ class Kele
         sender: sender_email,
         recipient_id: recipient_id,
         subject: subject,
-        :"stripped-text" => message_body
+        "stripped-text" => message_body
       }
     })
     p "Message Sent!"  if response.success?
